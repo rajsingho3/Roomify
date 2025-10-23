@@ -1,0 +1,64 @@
+
+# --- Node / Bun dependencies ---
+node_modules/
+bun.lockb
+bun.lock
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# --- Build outputs ---
+dist/
+build/
+.cache/
+out/
+tmp/
+Backend/dist/
+Frontend/dist/
+Frontend/build/
+
+# --- TypeScript build artifacts ---
+*.tsbuildinfo
+Backend/tsconfig.tsbuildinfo
+
+# --- Environment files ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# --- Logs ---
+*.log
+npm-debug.log*
+bun-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Coverage / Testing ---
+coverage/
+*.lcov
+jest-cache/
+jest-report/
+
+# --- Frontend specific ---
+Frontend/.vite/
+Frontend/.cache/
+Frontend/node_modules/
+
+# --- Backend specific ---
+Backend/node_modules/
+Backend/.cache/
+
+# --- Temporary ---
+*.tmp
+*.temp
+*.bak
