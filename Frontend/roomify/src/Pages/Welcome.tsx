@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom";
 export default function Welcome() {
+  const navigate = useNavigate();
+  const handleCreateRoom = () =>{
+    navigate('/newchat');
+  }
   return (
     <div className="min-h-screen w-full bg-linear-to-br from-slate-900 via-purple-900 to-slate-900 flex flex-col justify-center items-center relative overflow-hidden">
       {/* Background decoration */}
@@ -42,7 +47,7 @@ export default function Welcome() {
 
           {/* Action buttons */}
           <div className="space-y-4 mb-6">
-            <button className="w-full bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95">
+            <button onClick={handleCreateRoom} className="w-full bg-linear-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-lg active:scale-95 cursor-pointer">
               <span className="flex items-center justify-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -76,7 +81,7 @@ export default function Welcome() {
               </div>
             </div>
 
-            <button className="w-full bg-white/10 hover:bg-white/20 border border-gray-600 hover:border-gray-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm">
+            <button className="w-full bg-white/10 hover:bg-white/20 border border-gray-600 hover:border-gray-500 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-300 transform hover:scale-105 backdrop-blur-sm cursor-pointer">
               <span className="flex items-center justify-center">
                 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
