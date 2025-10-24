@@ -47,6 +47,12 @@ export const useWebSocket = (url: string, roomId: string, userName: string) => {
   }, [addMessage]);
 
   const connectWebSocket = useCallback(() => {
+    // Don't connect if userName is empty
+    if (!userName || userName.trim() === '') {
+      console.log('Username not provided, skipping WebSocket connection');
+      return null;
+    }
+
     try {
       const ws = new WebSocket(url);
       
@@ -163,7 +169,10 @@ export const useWebSocket = (url: string, roomId: string, userName: string) => {
   }, [socket]);
 
   useEffect(() => {
-    connectWebSocket();
+    // Only attempt connection if userName is provided
+    if (userName && userName.trim() !== '') {
+      connectWebSocket();
+    }
 
     return () => {
       if (reconnectTimeoutRef.current) {
@@ -172,7 +181,7 @@ export const useWebSocket = (url: string, roomId: string, userName: string) => {
       disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userName]); // Connect when userName changes
 
   return {
     isConnected,

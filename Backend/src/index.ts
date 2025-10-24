@@ -203,7 +203,7 @@ function broadcastToRoom(roomId: string, message: Message, excludeUserId?: strin
     });
 }
 
-console.log("WebSocket server running on ws://localhost:8080");
+console.log("WebSocket server running on wss://roomify-1-5juz.onrender.com");
 
 
 

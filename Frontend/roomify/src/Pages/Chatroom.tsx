@@ -23,9 +23,9 @@ export default function Chatroom({ roomId: propRoomId, userName: propUserName }:
 
   // WebSocket connection - only connect when username is set
   const { isConnected, messages, error, sendMessage, reconnect } = useWebSocket(
-    'ws://localhost:8080',
+    'wss://roomify-1-5juz.onrender.com',
     roomId,
-    userName
+    isUserNameSet ? userName : '' // Only pass userName when it's set
   );
 
   // Auto scroll to bottom when new messages arrive
@@ -48,51 +48,6 @@ export default function Chatroom({ roomId: propRoomId, userName: propUserName }:
     if (tempUserName.trim()) {
       setUserName(tempUserName.trim());
       setIsUserNameSet(true);
-    }
-  };
-
-  // Focus username input on mount if username not set
-  useEffect(() => {
-    if (!isUserNameSet && userNameInputRef.current) {
-      userNameInputRef.current.focus();
-    } else if (isUserNameSet && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isUserNameSet]);
-
-  const handleSendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!inputMessage.trim() || !isConnected) return;
-
-    const success = sendMessage(inputMessage);
-    if (success) {
-      setInputMessage('');
-    }
-  };
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: '2-digit', 
-      minute: '2-digit' 
-    });
-  };
-
-  const copyRoomId = async () => {
-    try {
-      await navigator.clipboard.writeText(roomId);
-      // You could add a toast notification here
-    } catch (err) {
-      console.error('Failed to copy room ID:', err);
-    }
-  };
-
-  const toggleConnection = () => {
-    if (isConnected) {
-      // Disconnect functionality could be added here
-      console.log('Disconnect requested');
-    } else {
-      reconnect();
     }
   };
 
@@ -136,6 +91,61 @@ export default function Chatroom({ roomId: propRoomId, userName: propUserName }:
       </div>
     );
   }
+
+  // Show connecting state if username is set but not connected yet
+  if (isUserNameSet && !isConnected && !error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen bg-gray-900 text-white p-4">
+        <div className="bg-gray-800 border border-gray-700 rounded-lg p-8 w-full max-w-md text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          <h2 className="text-xl font-bold mb-2">Connecting to Room: {roomId}</h2>
+          <p className="text-gray-400 mb-4">Establishing connection as {userName}...</p>
+          <button
+            onClick={() => navigate('/')}
+            className="bg-gray-600 hover:bg-gray-700 text-white py-2 px-4 rounded-lg font-medium transition-colors"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const handleSendMessage = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!inputMessage.trim() || !isConnected) return;
+
+    const success = sendMessage(inputMessage);
+    if (success) {
+      setInputMessage('');
+    }
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', { 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+  };
+
+  const copyRoomId = async () => {
+    try {
+      await navigator.clipboard.writeText(roomId);
+      // You could add a toast notification here
+    } catch (err) {
+      console.error('Failed to copy room ID:', err);
+    }
+  };
+
+  const toggleConnection = () => {
+    if (isConnected) {
+      // Disconnect functionality could be added here
+      console.log('Disconnect requested');
+    } else {
+      reconnect();
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-white">
