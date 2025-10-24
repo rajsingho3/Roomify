@@ -1,17 +1,10 @@
 
+import Chatroom from './Pages/Chatroom';
 
 function App() {
-  
-
   return (
-    <div className="h-screen w-screen bg-gray-800  ">
-      <div className="h-1/12 bg-amber-300">
-        Message appears here
-      </div>
-      <div>
-        Input box here
-      </div>
-
+    <div className="h-screen w-screen">
+      <Chatroom roomId="Room-001" userName="John Doe" />
     </div>
   )
 }
