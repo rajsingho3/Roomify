@@ -6,8 +6,8 @@ Demo: https://roomify-zeta.vercel.app
 
 ## Tech
 - Frontend: React + TypeScript
-- Backend: Node + WebSocket (or Express + ws/socket.io — describe which)
-- Deployment: Vercel (frontend) / (your backend host)
+- Backend: Node + WebSocket 
+- Deployment: Vercel (frontend) / Render (Backend)
 
 ## Quick start (development)
 ```bash
